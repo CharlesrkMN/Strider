@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Strider")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18927b13fbc2455be24f0756e45633f0080a83d7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f1232ba49bf95f3c9e780fd70198503466c0ca1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Strider")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Strider")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

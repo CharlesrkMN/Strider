@@ -1,4 +1,22 @@
 ﻿@page
-@model MyApp.Namespace.MonstersModel
+@model MonstersModel
 @{
+    ViewData["Title"] = "Monsters";
+}
+
+<div class="text-center">
+    <h1>Available Monster Foes</h1>
+</div>
+
+<form method="post">
+    <select name="selectedMonster" asp-items="Model.MonsterList" onchange="this.form.submit()">
+        <option value="">-- Select a Monster to view --</option>
+    </select>
+</form>
+
+@if (Model.SelectedMonster != null)
+{
+    <h2>@Model.SelectedMonster.Mon_Type</h2>
+    <p>Description: @Model.SelectedMonster.Mon_Description</p>
+    <img src="/mImages/@Model.SelectedMonster.ImageFileName" alt="@Model.SelectedMonster.Mon_Type" style="max-width: 300px;" class="center">
 }
