@@ -1,0 +1,22 @@
+﻿@page
+@model AdventurersModel
+@{
+    ViewData["Title"] = "Adventurers";
+}
+
+<div class="text-center">
+    <h1>Available adventurer classes</h1>
+</div>
+
+<form method="post">
+    <select name="selectedAdventurer" asp-items="Model.AdventurerList" onchange="this.form.submit()">
+        <option value="">-- Select an Adventurer --</option>
+    </select>
+</form>
+
+@if (Model.SelectedAdventurer != null)
+{
+    <h2>@Model.SelectedAdventurer.adv_Type</h2>
+    <p>Race: @Model.SelectedAdventurer.adv_Race</p>
+    <img src="/aImages/@Model.SelectedAdventurer.ImageFileName" alt="@Model.SelectedAdventurer.adv_Type" style="max-width: 300px;" class="center">
+}
