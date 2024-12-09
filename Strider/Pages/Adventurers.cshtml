@@ -5,18 +5,18 @@
 }
 
 <div class="text-center">
-    <h1>Available adventurer classes</h1>
+    <h1>Available Adventurer Classes</h1>
 </div>
 
 <form method="post">
     <select name="selectedAdventurer" asp-items="Model.AdventurerList" onchange="this.form.submit()">
         <option value="">-- Select an Adventurer --</option>
-    </select>
+    </select>    
 </form>
 
 @if (Model.SelectedAdventurer != null)
 {
     <h2>@Model.SelectedAdventurer.adv_Type</h2>
     <p>Race: @Model.SelectedAdventurer.adv_Race</p>
-    <img src="/aImages/@Model.SelectedAdventurer.ImageFileName" alt="@Model.SelectedAdventurer.adv_Type" style="max-width: 300px;" class="center">
+    <img style="border-radius: 8px;"src="/aImages/@Model.SelectedAdventurer.ImageFileName" alt="@Model.SelectedAdventurer.adv_Type" width="500" height="500" class="center">
 }

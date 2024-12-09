@@ -1,12 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace MyApp.Namespace
+namespace Strider.Pages;
+
+public class PlayModel : PageModel
 {
-    public class PlayModel : PageModel
+    private readonly ILogger<PlayModel> _logger;
+
+    public PlayModel(ILogger<PlayModel> logger)
     {
-        public void OnGet()
-        {
-        }
+        _logger = logger;
+    }
+
+    public void OnGet()
+    {
+
     }
 }
