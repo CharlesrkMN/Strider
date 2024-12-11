@@ -24,4 +24,10 @@ body {
   font-family: "copperplate", fantasy;
 }
 
+.combat-log {
+  height: 500px;
+  font-size: 1rem;
+  overflow: scroll;
+  border: black solid 2px;
+}
 

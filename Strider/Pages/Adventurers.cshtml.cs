@@ -23,7 +23,7 @@
            }
        }
 
-       private void LoadAdventurerList()
+       public void LoadAdventurerList()
        {
            AdventurerList = new List<SelectListItem>();
            using (var connection = new SqliteConnection("Data Source=Strider.db"))
@@ -45,7 +45,7 @@
            }
        }
 
-       private Adventurer GetAdventurerByadv_ID(int id)
+       public Adventurer GetAdventurerByadv_ID(int id)
        {
            using (var connection = new SqliteConnection("Data Source=Strider.db"))
            {
@@ -78,3 +78,13 @@
        public string adv_Race { get; set; }
        public string ImageFileName { get; set; }
    }
+
+       public class Stat
+   {
+       public int Stat_ID { get; set; }
+       public int Health { get; set; }
+       public int Speed { get; set; }
+       public int Exp { get; set; }
+       public int adv_ID {get; set; }
+       public int Mon_ID {get; set; }
+    }

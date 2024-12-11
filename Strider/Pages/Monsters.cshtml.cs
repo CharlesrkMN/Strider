@@ -23,7 +23,7 @@
            }
        }
 
-       private void LoadMonsterList()
+       public void LoadMonsterList()
        {
            MonsterList = new List<SelectListItem>();
            using (var connection = new SqliteConnection("Data Source=Strider.db"))
@@ -45,7 +45,7 @@
            }
        }
 
-       private Monster GetMonsterByMon_ID(int id)
+       public Monster GetMonsterByMon_ID(int id)
        {
            using (var connection = new SqliteConnection("Data Source=Strider.db"))
            {

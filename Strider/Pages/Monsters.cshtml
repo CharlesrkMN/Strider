@@ -18,5 +18,6 @@
 {
     <h2>@Model.SelectedMonster.Mon_Type</h2>
     <p style="text-align: center;border:2px solid;width:600px;word-wrap: break-word;float:right;font-size:35px;">Description: @Model.SelectedMonster.Mon_Description</p>
-    <img style="border-radius: 8px;"src="/mImages/@Model.SelectedMonster.ImageFileName" alt="@Model.SelectedMonster.Mon_Type" width="500" height="500" class="center">
+    <img style="object-fit: contain;"src="/mImages/@Model.SelectedMonster.ImageFileName" alt="@Model.SelectedMonster.Mon_Type" width="500" height="500"
+     class="center">
 }
