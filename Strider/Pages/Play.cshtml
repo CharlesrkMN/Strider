@@ -11,67 +11,44 @@
 <img style="margin:auto;display:block;" src="/dImages/decrepit.jpg" width="1200" height="300">
 
 <body>
-    <p id="Start">
-        Choose an adventurer below!    
-    </p>
-
-        <form asp-asp-page-handler="mWarrior" method="post">
-            <button class="btn btn-default" style="background-color: red;">
-                Male Warrior
-            </button>
-        </form>
-
-        <form asp-asp-page-handler="fWarrior" method="post">
-        <button class="btn btn-default" style="background-color: red;">
-            Female Warrior
-        </button>
-        </form>
-
-        <form asp-asp-page-handler="mArcher" method="post">
-        <button class="btn btn-default" style="background-color: green;">
-            Male Archer
-        </button>
-        </form>
-
-        <form asp-asp-page-handler="fArcher" method="post">
-        <button class="btn btn-default" style="background-color: green;">
-            Female Archer
-        </button>
-        </form>
-
-        <form asp-asp-page-handler="mMage" method="post">
-        <button class="btn btn-default" style="background-color: blue;">
-            Male Mage
-        </button>
-        </form>
-
-        <form asp-asp-page-handler="fMage" method="post">
-        <button class="btn btn-default" style="background-color: blue;">
-            Female Mage
-        </button>
-        </form>
+    
     
     <br>
-    <img id="hero" style="float:left;" src="" width="100" height="100">
+    <form method="post">
+        <select name="selectedPlayer" asp-items="Model.PlayerList" onchange="this.form.submit()">
+            <option value="">-- Select an Adventurer --</option>
+        </select>    
+    </form>
 
-    <img style="float:right;" src="m">
-    <br>
+    @if (Model.SelectedPlayer != null)
+    {
+        <h2>@Model.SelectedPlayer.adv_Type</h2>
+        <img style="object-fit:contain;float:left;"src="/aImages/@Model.SelectedPlayer.ImageFileName" alt="@Model.SelectedPlayer.adv_Type" width="500" height="500">
+    }
 
-    <br>
-    <p style="text-align: center;">
-        Select an Ability to Use:
-    </p>
-
+    @if (Model.SelectedEnemy != null)
+    {
+        <h2 style="text-align:right;">@Model.SelectedEnemy.Mon_Type</h2>
+        <img style="object-fit: contain;float:right;"src="/mImages/@Model.SelectedEnemy.ImageFileName" alt="@Model.SelectedEnemy.Mon_Type" width="500" height="500">
+    }
     <div class="controls">
-        <button id="A1" style="width:100%;background-color:orangered;">
-            Ability 1
-        </button>
-        <br>
+        <p style="text-align: center;display:block; font-size:40px;">
+            VS
+        </p>
 
-        <br>
-        <br><button id="A2" style="width:100%;background-color:orangered;">
-            Ability 2
+    @if (Model.SelectedAbility != null)
+    {
+            <button method="Attack" id="Atk1" style="width:100%;background-color:orangered;">
+                @Model.SelectedAbility.Action
+            </button>
+    }    
+
+    <br>@if (Model.SelectedAbility2 != null)
+    {
+        <br><button method="Attack2" id="Atk2" style="width:100%;background-color:orangered;">
+            @Model.SelectedAbility2.Action
         </button>
+    }    
         <br>
 
         <br><div name="combat-log" class="combat-log" readonly id="cLog" cols="30" rows="10">
