@@ -6,8 +6,9 @@ using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
-public class PlayModel : PageModel
+public class PlayModel : PageModel //set playmodel class
    {
+    //creates instances of classes
        public List<SelectListItem> PlayerList { get; set; }
        public List<SelectListItem> EnemyList { get; set; }
        public Player SelectedPlayer { get; set; }
@@ -17,14 +18,14 @@ public class PlayModel : PageModel
        public pStat SelectedpStat {get; set;}
        public mStat SelectedmStat {get; set;}
 
-       public void Versus()
+       public void Versus() //generates a random enemy opponent 
        {
             Random rnd = new Random();
-            int x = rnd.Next(1,8);
-            SelectedEnemy = GetEnemyByMon_ID(x);
+            int x = rnd.Next(1,8); //set variable x = random number from 1-8
+            SelectedEnemy = GetEnemyByMon_ID(x); //calls function using x as id value parameter
        }
 
-        public void LoadEnemyList()
+        public void LoadEnemyList() //loads enemies from the monsters table on strider database
        {
            EnemyList = new List<SelectListItem>();
            using (var connection = new SqliteConnection("Data Source=Strider.db"))
@@ -46,7 +47,7 @@ public class PlayModel : PageModel
            }
        }
 
-    public Enemy GetEnemyByMon_ID(int id)
+    public Enemy GetEnemyByMon_ID(int id) //gets enemy info based on int value id
        {
            using (var connection = new SqliteConnection("Data Source=Strider.db"))
            {
@@ -72,24 +73,24 @@ public class PlayModel : PageModel
        }
    
 
-       public void OnGet()
+       public void OnGet() //used to load class options
        {
            LoadPlayerList();
        }
 
-       public void OnPost(string selectedPlayer)
+       public void OnPost(string selectedPlayer) //run when player chooses a class
        {
            LoadPlayerList();
            if (!string.IsNullOrEmpty(selectedPlayer))
            {
-               SelectedPlayer = GetPlayerByadv_ID(int.Parse(selectedPlayer));
-               SelectedAbility = GetAbilityByadv_ID(int.Parse(selectedPlayer));
-               SelectedAbility2 = GetAbility2Byadv_ID(int.Parse(selectedPlayer));
+               SelectedPlayer = GetPlayerByadv_ID(int.Parse(selectedPlayer)); //set Selected player instance to chosen class
+               SelectedAbility = GetAbilityByadv_ID(int.Parse(selectedPlayer)); //set ability to chosen class
+               SelectedAbility2 = GetAbility2Byadv_ID(int.Parse(selectedPlayer)); //set ability2 to chosen class
            }
-           Versus();
+           Versus(); //run versus function to populate opponent
        }
 
-       public void LoadPlayerList()
+       public void LoadPlayerList() //loads class options for player from Adventurers table in the strider database
        {
            PlayerList = new List<SelectListItem>();
            using (var connection = new SqliteConnection("Data Source=Strider.db"))
@@ -111,7 +112,7 @@ public class PlayModel : PageModel
            }
        }
 
-       public Player GetPlayerByadv_ID(int id)
+       public Player GetPlayerByadv_ID(int id) //gets the class info based on unique adventurer id found from player list
        {
            using (var connection = new SqliteConnection("Data Source=Strider.db"))
            {
@@ -135,12 +136,13 @@ public class PlayModel : PageModel
            }
            return null;
        }
-       public pAbility GetAbilityByadv_ID(int id)
+       public pAbility GetAbilityByadv_ID(int id) //sets players first ability
        {
             using (var connection = new SqliteConnection("Data Source=Strider.db"))
            {
                connection.Open();
                var command = connection.CreateCommand();
+               //inner join statement using adventurer ids from both tables
                command.CommandText = "SELECT a.* FROM Abilities AS a INNER JOIN Adventurers as t ON a.adv_ID = t.adv_ID WHERE t.adv_ID = @adv_ID";
                command.Parameters.AddWithValue("@adv_ID", id);
                using (var reader = command.ExecuteReader())
@@ -161,7 +163,7 @@ public class PlayModel : PageModel
            return null;
        }
 
-        public pAbility GetAbility2Byadv_ID(int id)
+        public pAbility GetAbility2Byadv_ID(int id) //sets players second ability
        {
             using (var connection = new SqliteConnection("Data Source=Strider.db"))
            {
@@ -186,7 +188,12 @@ public class PlayModel : PageModel
            }
            return null;
        }
-       public void OnAttack()
+       public void OnAttack() //used when first ability is clicked
+       {
+
+       }
+
+       public void OnAttack2() //used when second ability is clicked
        {
 
        }

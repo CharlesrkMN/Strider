@@ -3,17 +3,17 @@
 @{
     ViewData["Title"] = "Monsters";
 }
-
+<!-- sets page header-->
 <div class="text-center">
     <h1>Available Monster Foes</h1>
 </div>
-
+<!-- creates a select form populated with monsters-->
 <form method="post">
     <select name="selectedMonster" asp-items="Model.MonsterList" onchange="this.form.submit()">
         <option value="">-- Select a Monster to view --</option>
     </select>
 </form>
-
+<!-- displays monsters info based on selected monster-->
 @if (Model.SelectedMonster != null)
 {
     <h2>@Model.SelectedMonster.Mon_Type</h2>

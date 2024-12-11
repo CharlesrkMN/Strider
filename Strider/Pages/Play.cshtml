@@ -3,46 +3,49 @@
 @{
     ViewData["Title"] = "Play";
 }
-
+<!-- sets page header-->
 <div class="text-center">
     <h1 class="display-4">Strider: A Dungeon Fighter Experience</h1>
 </div>
-
+<!-- loads decrepit Dungeon image-->
 <img style="margin:auto;display:block;" src="/dImages/decrepit.jpg" width="1200" height="300">
 
 <body>
     
     
     <br>
+    <!-- creates select button to choose class-->
     <form method="post">
         <select name="selectedPlayer" asp-items="Model.PlayerList" onchange="this.form.submit()">
             <option value="">-- Select a Class --</option>
         </select>    
     </form>
-
+    <!-- displays selected class information based on selectedPlayer from PlayModel-->
     @if (Model.SelectedPlayer != null)
     {
         <h2>@Model.SelectedPlayer.adv_Type</h2>
         <img style="object-fit:contain;float:left;"src="/aImages/@Model.SelectedPlayer.ImageFileName" alt="@Model.SelectedPlayer.adv_Type" width="500" height="500">
     }
-
+    <!-- displays selected Enemy from PlayModel-->
     @if (Model.SelectedEnemy != null)
     {
         <h2 style="text-align:right;">@Model.SelectedEnemy.Mon_Type</h2>
         <img style="object-fit: contain;float:right;"src="/mImages/@Model.SelectedEnemy.ImageFileName" alt="@Model.SelectedEnemy.Mon_Type" width="500" height="500">
     }
+
+    <!-- creates controls class for ability buttons-->
     <div class="controls">
         <p style="text-align: center;display:block; font-size:40px;">
             VS
         </p>
-
+    <!-- creates the first ability button based on SelectedAbility from the PlayModel-->
     @if (Model.SelectedAbility != null)
     {
             <button method="Attack" id="Atk1" style="width:100%;background-color:orangered;">
                 @Model.SelectedAbility.Action
             </button>
     }    
-
+    <!-- creates the second ability button based on SelectedAbility2 from the PlayModel-->
     <br>@if (Model.SelectedAbility2 != null)
     {
         <br><button method="Attack2" id="Atk2" style="width:100%;background-color:orangered;">
@@ -50,7 +53,7 @@
         </button>
     }    
         <br>
-
+    <!-- sets combat log div-->
         <br><div name="combat-log" class="combat-log" readonly id="cLog" cols="30" rows="10">
         </div>
     </div>

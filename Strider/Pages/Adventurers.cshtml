@@ -1,19 +1,19 @@
 ﻿@page
 @model AdventurersModel
 @{
-    ViewData["Title"] = "Adventurers";
+    ViewData["Title"] = "Adventurers"; <!-- Set page title as Adventurers-->
 }
-
+<!-- sets page header-->
 <div class="text-center">
     <h1>Available Adventurer Classes</h1>
 </div>
-
+<!-- creates a select form populated with adventurers-->
 <form method="post">
     <select name="selectedAdventurer" asp-items="Model.AdventurerList" onchange="this.form.submit()">
         <option value="">-- Select an Adventurer --</option>
     </select>    
 </form>
-
+<!-- displays adventurers information based on selected adventurer-->
 @if (Model.SelectedAdventurer != null)
 {
     <h2>@Model.SelectedAdventurer.adv_Type</h2>

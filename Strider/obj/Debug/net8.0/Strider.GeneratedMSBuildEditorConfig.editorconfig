@@ -26,10 +26,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/Strider/Strider/Pages/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [/workspaces/Strider/Strider/Pages/Monsters.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTW9uc3RlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
