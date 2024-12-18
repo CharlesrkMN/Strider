@@ -17,12 +17,17 @@ public class PlayModel : PageModel //set playmodel class
        public pAbility SelectedAbility2 {get; set;}
        public pStat SelectedpStat {get; set;}
        public mStat SelectedmStat {get; set;}
+       public int pDmg {get; set;}
+       public int pHealth {get; set;}
+       public int mDmg {get; set;}
+       public int mHealth {get; set;}
 
        public void Versus() //generates a random enemy opponent 
        {
             Random rnd = new Random();
             int x = rnd.Next(1,8); //set variable x = random number from 1-8
             SelectedEnemy = GetEnemyByMon_ID(x); //calls function using x as id value parameter
+            SelectedmStat = GetmStatByadv_ID(x); //calls function to set monster stats based off of random id#
        }
 
         public void LoadEnemyList() //loads enemies from the monsters table on strider database
@@ -86,6 +91,7 @@ public class PlayModel : PageModel //set playmodel class
                SelectedPlayer = GetPlayerByadv_ID(int.Parse(selectedPlayer)); //set Selected player instance to chosen class
                SelectedAbility = GetAbilityByadv_ID(int.Parse(selectedPlayer)); //set ability to chosen class
                SelectedAbility2 = GetAbility2Byadv_ID(int.Parse(selectedPlayer)); //set ability2 to chosen class
+               SelectedpStat = GetpStatByadv_ID(int.Parse(selectedPlayer)); //set player stats for chosen class
            }
            Versus(); //run versus function to populate opponent
        }
@@ -188,15 +194,79 @@ public class PlayModel : PageModel //set playmodel class
            }
            return null;
        }
-       public void OnAttack() //used when first ability is clicked
-       {
 
+    public pStat GetpStatByadv_ID(int id) //sets players stats
+       {
+            using (var connection = new SqliteConnection("Data Source=Strider.db"))
+           {
+               connection.Open();
+               var command = connection.CreateCommand();
+               command.CommandText = "SELECT s.* FROM Stats AS s INNER JOIN Adventurers as t ON s.adv_ID = t.adv_ID WHERE t.adv_ID = @adv_ID";
+               command.Parameters.AddWithValue("@adv_ID", id);
+               using (var reader = command.ExecuteReader())
+               {
+                   if (reader.Read())
+                   {
+                       return new pStat
+                       {
+                           Stat_ID = reader.GetInt32(0),
+                           Health = reader.GetInt32(1),
+                           Speed = reader.GetInt32(2),
+                           Exp = reader.GetInt32(3),
+                           adv_ID = reader.GetInt32(4),
+                           Mon_ID = reader.GetInt32(5)
+                       };
+                   }
+               }
+           }
+           return null;
        }
 
-       public void OnAttack2() //used when second ability is clicked
+    public mStat GetmStatByadv_ID(int id) //sets monsters stats
        {
+            using (var connection = new SqliteConnection("Data Source=Strider.db"))
+           {
+               connection.Open();
+               var command = connection.CreateCommand();
+               command.CommandText = "SELECT s.* FROM Stats AS s INNER JOIN Monsters as m ON s.Mon_ID = m.Mon_ID WHERE m.Mon_ID = @Mon_ID";
+               command.Parameters.AddWithValue("@Mon_ID", id);
+               using (var reader = command.ExecuteReader())
+               {
+                   if (reader.Read())
+                   {
+                       return new mStat
+                       {
+                           Stat_ID = reader.GetInt32(0),
+                           Health = reader.GetInt32(1),
+                           Speed = reader.GetInt32(2),
+                           Exp = reader.GetInt32(3),
+                           adv_ID = reader.GetInt32(4),
+                           Mon_ID = reader.GetInt32(5)
+                       };
+                   }
+               }
+           }
+           return null;
+       }  
+    public async Task<IActionResult> OnPostButtonClickAsync()
+    {
+        // Handle basic button click
+        pDmg = SelectedAbility.Damage;
+        Combat();
+        return RedirectToPage();
+    }
 
-       }
+    public void Combat()
+    {
+        Random val = new Random();
+        int dmgDone = val.Next(1, pDmg);
+        mHealth = SelectedmStat.Health;
+        pHealth = SelectedpStat.Health;
+        mHealth = mHealth - dmgDone;
+
+    }
+
+
    }
 
    public class Player

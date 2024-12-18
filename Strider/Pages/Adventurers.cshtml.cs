@@ -9,6 +9,7 @@
    {
        public List<SelectListItem> AdventurerList { get; set; } //declare the adventurerlist to select from
        public Adventurer SelectedAdventurer { get; set; } // gets  and sets selected adventurer
+       public Stat SelectedStats {get; set;}
 
        public void OnGet() //calls to load adventurer options when drop-down is clicked
        {
@@ -21,6 +22,7 @@
            if (!string.IsNullOrEmpty(selectedAdventurer))
            {
                SelectedAdventurer = GetAdventurerByadv_ID(int.Parse(selectedAdventurer));
+               SelectedStats = GetStatByadv_ID(int.Parse(selectedAdventurer));
            }
        }
 
@@ -63,7 +65,35 @@
                            adv_ID = reader.GetInt32(0),
                            adv_Type = reader.GetString(1),
                            adv_Race = reader.GetString(2),
-                           ImageFileName = reader.GetString(3)
+                           ImageFileName = reader.GetString(3),
+                           Desc = reader.GetString(4)
+                       };
+                   }
+               }
+           }
+           return null;
+       }
+
+    public Stat GetStatByadv_ID(int id) //sets players stats
+       {
+            using (var connection = new SqliteConnection("Data Source=Strider.db"))
+           {
+               connection.Open();
+               var command = connection.CreateCommand();
+               command.CommandText = "SELECT s.* FROM Stats AS s INNER JOIN Adventurers as t ON s.adv_ID = t.adv_ID WHERE t.adv_ID = @adv_ID";
+               command.Parameters.AddWithValue("@adv_ID", id);
+               using (var reader = command.ExecuteReader())
+               {
+                   if (reader.Read())
+                   {
+                       return new Stat
+                       {
+                           Stat_ID = reader.GetInt32(0),
+                           Health = reader.GetInt32(1),
+                           Speed = reader.GetInt32(2),
+                           Exp = reader.GetInt32(3),
+                           adv_ID = reader.GetInt32(4),
+                           Mon_ID = reader.GetInt32(5)
                        };
                    }
                }
@@ -79,6 +109,7 @@
        public string adv_Type { get; set; }
        public string adv_Race { get; set; }
        public string ImageFileName { get; set; }
+       public string Desc {get; set;}
    }
 
        public class Stat //declares the stat class

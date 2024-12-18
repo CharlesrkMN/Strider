@@ -41,21 +41,67 @@
     <!-- creates the first ability button based on SelectedAbility from the PlayModel-->
     @if (Model.SelectedAbility != null)
     {
-            <button method="Attack" id="Atk1" style="width:100%;background-color:orangered;">
+            <button class="btn btn-info" id="Atk1" style="width:100%;background-color:orangered;">
                 @Model.SelectedAbility.Action
             </button>
     }    
+
     <!-- creates the second ability button based on SelectedAbility2 from the PlayModel-->
     <br>@if (Model.SelectedAbility2 != null)
     {
-        <br><button method="Attack2" id="Atk2" style="width:100%;background-color:orangered;">
+        <br><button class="btn btn-info" id="Atk2" style="width:100%;background-color:orangered;">
             @Model.SelectedAbility2.Action
         </button>
     }    
+
+@section Scripts {
+    <script>
+        document.getElementById('Atk1').addEventListener('click', async () => {
+            try {
+                const response = await fetch('?handler=AjaxClick', {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    }
+                });
+                const result = await response.json();
+                console.log(result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        document.getElementById('Atk2').addEventListener('click', async () => {
+            try {
+                const response = await fetch('?handler=AjaxClick', {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    }
+                });
+                const result = await response.json();
+                console.log(result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+
+        function logCombatEvent(attacker, defender, damage) {
+
+            let logItem = document.createElement('li');
+            logItem.innerHTML = '<span class="attacker-name">${attacker}</span> dealt ${damage} damage to <span class="defender-name">${defender}'
+            document.getElementById('combat-log').appendChild(logItem);
+            }
+        logCombatEvent(@Model.SelectedPlayer, @Model.SelectedEnemy, @Model.pDmg);
+        logCombatEvent(@Model.SelectedEnemy, @Model.SelectedPlayer, @Model.pDmg);  
+        });
+    </script>
+}
+
         <br>
     <!-- sets combat log div-->
-        <br><div name="combat-log" class="combat-log" readonly id="cLog" cols="30" rows="10">
+        <br><div id="combat-log" class="combat-log" readonly id="cLog" cols="30" rows="10">
         </div>
+
     </div>
 
 </body>
