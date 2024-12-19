@@ -16,8 +16,10 @@
 <!-- displays monsters info based on selected monster-->
 @if (Model.SelectedMonster != null)
 {
-    <h2>@Model.SelectedMonster.Mon_Type</h2>
+    <h2>@Model.SelectedMonster.Mon_Type</h2> //displays monster type
+    //displays monster description
     <p style="text-align: center;border:2px solid;width:600px;word-wrap: break-word;float:right;font-size:35px;">Description: @Model.SelectedMonster.Mon_Description</p>
+    //displays monster image
     <img style="object-fit: contain;"src="/mImages/@Model.SelectedMonster.ImageFileName" alt="@Model.SelectedMonster.Mon_Type" width="500" height="500"
      class="center">
 }

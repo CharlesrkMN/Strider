@@ -17,13 +17,16 @@ html {
   min-height: 100%;
 }
 
+/* styles body section of all the razor pages*/
 body {
   margin-bottom: 60px;
   background-color: rgb(175, 174, 174);
   text-align: left;
+  /* sets the font of the website*/
   font-family: "copperplate", fantasy;
 }
 
+/* styles the combat log*/
 .combat-log {
   height: 500px;
   font-size: 1rem;

@@ -16,12 +16,14 @@
 <!-- displays adventurers information based on selected adventurer-->
 @if (Model.SelectedAdventurer != null)
 {
+    //displays adventurer type, race, health, speed, and exp vlaues
     <h2>@Model.SelectedAdventurer.adv_Type</h2>
     <p>Race: @Model.SelectedAdventurer.adv_Race</p>
     <p>Health: @Model.SelectedStats.Health</p>
     <p>Speed: @Model.SelectedStats.Speed</p>
     <p>Exp: @Model.SelectedStats.Exp</p>
-
+    //displays adventurer description
     <p style="text-align: center;border:2px solid;width:600px;word-wrap: break-word;float:right;font-size:35px;">Description: @Model.SelectedAdventurer.Desc</p>
+    //displays adventurer image
     <img style="object-fit:contain;"src="/aImages/@Model.SelectedAdventurer.ImageFileName" alt="@Model.SelectedAdventurer.adv_Type" width="500" height="500" class="center">
 }

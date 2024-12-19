@@ -9,7 +9,7 @@
    {
        public List<SelectListItem> AdventurerList { get; set; } //declare the adventurerlist to select from
        public Adventurer SelectedAdventurer { get; set; } // gets  and sets selected adventurer
-       public Stat SelectedStats {get; set;}
+       public Stat SelectedStats {get; set;} //gets and sets selected stats to display
 
        public void OnGet() //calls to load adventurer options when drop-down is clicked
        {

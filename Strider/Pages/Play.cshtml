@@ -54,7 +54,14 @@
         </button>
     }    
 
+        <br>
+    <!-- sets combat log div-->
+        <br><div id="combat-log" class="combat-log" readonly id="cLog" cols="30" rows="10">
+        </div>
+
+     <!-- script section for buttons attemted to use ajax-->
 @section Scripts {
+     <!-- acknowledges button clicks and calls on the logCombatEvent function assuming that methods were performed correctly-->
     <script>
         document.getElementById('Atk1').addEventListener('click', async () => {
             try {
@@ -66,10 +73,12 @@
                 });
                 const result = await response.json();
                 console.log(result);
+                logCombatEvent(@Model.SelectedPlayer, @Model.SelectedEnemy, @Model.dmgDone);
+                logCombatEvent(@Model.SelectedEnemy, @Model.SelectedPlayer, @Model.mDmgDone); 
             } catch (error) {
                 console.error('Error:', error);
             }
-        }
+            });
 
         document.getElementById('Atk2').addEventListener('click', async () => {
             try {
@@ -81,27 +90,37 @@
                 });
                 const result = await response.json();
                 console.log(result);
+                logCombatEvent(@Model.SelectedPlayer, @Model.SelectedEnemy, @Model.dmgDone);
+                logCombatEvent(@Model.SelectedEnemy, @Model.SelectedPlayer, @Model.mDmgDone); 
             } catch (error) {
                 console.error('Error:', error);
             }
+        });
 
-        function logCombatEvent(attacker, defender, damage) {
+
+        function logCombatEvent(attacker, defender, damage) 
+        {
 
             let logItem = document.createElement('li');
-            logItem.innerHTML = '<span class="attacker-name">${attacker}</span> dealt ${damage} damage to <span class="defender-name">${defender}'
+            logItem.innerHTML = '<span class="attacker-name">${attacker}</span> dealt ${damage} damage to <span class="defender-name">${defender}';
             document.getElementById('combat-log').appendChild(logItem);
+            if (Model.mHealth <= 0)
+            {
+                let result = document.createElement('re');
+                result.innerHTML = 'You have defeated the monster. You are victorious!';
+                document.getElementById('combat-log').appendChild(result);
+
             }
-        logCombatEvent(@Model.SelectedPlayer, @Model.SelectedEnemy, @Model.pDmg);
-        logCombatEvent(@Model.SelectedEnemy, @Model.SelectedPlayer, @Model.pDmg);  
-        });
+            if (Model.pHealth <= 0)
+            {
+                let result = document.createElement('re');
+                result.innerHTML = 'You have been slain!';
+                document.getElementById('combat-log').appendChild(result);
+            }
+        }
     </script>
 }
 
-        <br>
-    <!-- sets combat log div-->
-        <br><div id="combat-log" class="combat-log" readonly id="cLog" cols="30" rows="10">
-        </div>
-
-    </div>
+</div>
 
 </body>
